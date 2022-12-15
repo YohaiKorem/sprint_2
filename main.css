@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 auto
+}
+
+
+:root {
+
+    --outer: 17rem;
+    --middle: 2rem;
+    --s: 600px;
+    --m: 900px;
+    --l: 1060px;
+}
+
+
+/* helpers */
+.grid {
+    display: grid;
+}
+
+/* cmp */
+
+input {
+    border: 3px red solid;
+}
+
+header {
+    background-color: #ff8000;
+    height: 10vh;
+}
+
+footer {
+    background-color: #ff8000;
+    height: 10vh;
+}
+
+canvas {
+    width: 90%;
+    height: 90%;
+}
+
+/* containers */
+
+.gallery-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: max-content;
+    margin: 0 auto;
+}
+
+
+
+
+.canvas-container {
+    align-items: center;
+    justify-self: center;
+    width: 50vw;
+    height: 80vh;
+    /* background-color: antiquewhite; */
+    grid-area: canvas;
+}
+
+.editor-container {
+    display: none;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+        'canvas buttons';
+}
+
+.social-links {
+    background-color: blue;
+}
+
+.editor-buttons {
+    background-color: aqua;
+    grid-area: buttons;
+    width: 50vw;
+    height: 80vh;
+}
+
+
+
+.image {
+    cursor: pointer;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Document</title>
+</head>
+
+<body onload="init()
+">
+    <header class="main-header grid">
+        <div class="logo">memegen</div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="search-bar">
+        <input type="text">
+    </div>
+    <section class="gallery-container">
+        <div class="grid-container">
+
+        </div>
+    </section>
+
+
+    <section class="editor-container grid">
+        <div class="editor-buttons">
+
+            <button onclick="homeScreen()">Home</button>
+            <button onclick="onChangeFontSize('+')">Bigger Font</button>
+            <button onclick="onChangeFontSize('-')">Smaller Font</button>
+
+            <div class="color-picker">
+
+                <input type="color" name="filling-color">
+                filling color
+
+                <input type="color" name="border-color">
+                border color
+
+                <button onclick="setColors()">set colors
+                </button>
+            </div>
+
+
+
+
+            <form onsubmit="eventHandler(event)">
+                <input type="text" name="meme-text">
+                <button onclick="getMemeTextFromUser()">submit</button>
+            </form>
+            <button onclick="getLineIdxFromUser()">&#8645;</button>
+        </div>
+        <div class="canvas-container">
+            <canvas id="canvas" height="450" width="450"></canvas>
+        </div>
+    </section>
+    <div class="social-links">
+        social links
+    </div>
+    <footer class="main-footer">
+        <div class="logo">memegen</div>
+    </footer>
+    <script src="js/storage-service.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/gallery-controller.js"></script>
+    <script src="js/meme-controller.js"></script>
+    <script src="js/meme-service.js"></script>
+</body>
+
+</html>
