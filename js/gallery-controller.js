@@ -11,6 +11,14 @@ function renderGallery() {
             <img class="image" src="${img.url}" alt="" id="${img.id}" " onclick="openEditor(), setGCurrImg(this)">
     `
     )
-    document.querySelector('.grid-container').innerHTML = strHTML
+    document.querySelector('.gallery-flex-container').innerHTML = strHTML
+}
+
+
+function toggleMenu() {
+    document.querySelector('body').classList.toggle('menu-open')
+
+    document.querySelector('.mobile-nav-container').classList.toggle('hidden')
+
 }
 // onclick = "

@@ -5,71 +5,137 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css" />
     <title>Document</title>
 </head>
 
-<body onload="init()
+<body class="main-layout" onload="init()
 ">
-    <header class="main-header grid">
-        <div class="logo">memegen</div>
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#">Gallery</a></li>
+    <div class="main-screen full" onclick="toggleMenu()"></div>
+    <div class="mobile-nav-container hidden">
+
+        <nav class="mobile-nav flex">
+            <div class="logo"><img class="logo-photo" src="/img/LOGO.png" alt=""></div>
+            <span class="close-mobile-nav" onclick="toggleMenu()">X</span>
+            <ul class="clean-list flex">
+                <li><a onclick="homeScreen()" href="#">Gallery</a></li>
+
                 <li><a href="#">About</a></li>
             </ul>
         </nav>
+    </div>
+    <header class="main-header grid full">
+        <div class="logo header-logo"><img class="logo-photo" src="/img/LOGO.png" alt=""></div>
+        <nav class="main-nav">
+            <ul class="clean-list flex">
+                <li><a onclick="homeScreen()" href="#">Gallery</a></li>
+                <span>|</span>
+                <li><a href="#">About</a></li>
+            </ul>
+        </nav>
+
+        <button class="menu-toggle-btn" onclick="toggleMenu()">☰</button>
     </header>
-    <div class="search-bar">
-        <input type="text">
+
+    <div class="search-bar grid">
+        <input class="search-meme" type="text" placeholder="Enter search keyword">
+        <div class="tags">some tags</div>
     </div>
     <section class="gallery-container">
-        <div class="grid-container">
+        <div class="gallery-flex-container">
 
         </div>
     </section>
 
 
     <section class="editor-container grid">
-        <div class="editor-buttons">
+        <div class="editor-buttons grid">
 
-            <button onclick="homeScreen()">Home</button>
-            <button onclick="onChangeFontSize('+')">Bigger Font</button>
-            <button onclick="onChangeFontSize('-')">Smaller Font</button>
+            <form onsubmit="eventHandler(event)" class="meme-text">
+                <input name="meme-text" type="text" onkeyup="getMemeTextFromUser()">
+            </form>
 
-            <div class="color-picker">
+            <button class="font-grow" onclick="onChangeFontSize('+')">
+                <img class="icon" src="/icons/increase font - icon.png" alt="">
+            </button>
+            <button class="font-shrink" onclick="onChangeFontSize('-')"><img class="icon"
+                    src="/icons/decrease font - icon.png" alt=""></button>
 
-                <input type="color" name="filling-color">
-                filling color
+            <!-- <div class="color-picker"> -->
+            <button class="filling-color" onclick="openColorPicker('filling')">
+                <input type="color" name="filling-color" onchange="setColors()">
+                <img src="/icons/paint-board-and-brush.png" alt="" class="icon">
+            </button>
 
-                <input type="color" name="border-color">
-                border color
+            <button class="border-color" onclick="openColorPicker('border')">
+                <input type="color" name="border-color" onchange="setColors()"><img src="/icons/text stroke.png" alt=""
+                    class="icon">
+            </button>
 
-                <button onclick="setColors()">set colors
+            <form onsubmit="eventHandler(event)" class="font-picker">
+                <label for="font"></label>
+                <select name="fonts" id="font" onchange="getFontFamilyFromUser()">
+                    <option value="impact">impact</option>
+                    <option value="arial">arial</option>
+                    <option value="times new roman">times new roman</option>
+                    <option value="david">david</option>
+                    <option value="calibri">calibri</option>
+                </select>
+                <!-- <input type="submit" value="Submit" /> -->
+            </form>
+
+            <button class="line-selector" onclick="getLineIdxFromUser()"><img
+                    src="/icons/up-and-down-opposite-double-arrows-side-by-side.png" alt="" class="icon"></button>
+            <button class="line-adder" onclick="onAddLine()"><img src="/icons/add.png" alt="" class="icon"></button>
+            <button class="line-remover" onclick="onRemoveLine()"><img src="/icons/trash.png" alt=""
+                    class="icon"></button>
+            <button class="text-align-left" onclick="onSetTextAlign('left')"><img src="/icons/align-to-left.png" alt=""
+                    class="icon"></button>
+            <button class="text-align-center" onclick="onSetTextAlign('center')"><img
+                    src="/icons/center-text-alignment.png" alt="" class="icon"></button>
+            <button class="text-align-right" onclick="onSetTextAlign('right')"><img src="/icons/align-to-right.png"
+                    alt="" class="icon"></button>
+
+            <button class="emoji-picker">❤😂🤩😎</button>
+
+            <div class="download-upload grid">
+                <button class="user-img" onclick="fileInput()">
+                    choose file
+                    <input type="file" class="file-input btn" name="image" onchange="onImgInput(event)" />
+
+                </button>
+                <button class="upload-btn" onclick="onUploadImg()">
+                    Share
+                </button>
+                <button class="download-btn">
+                    <a href="#" class="download-link" onclick="downloadCanvas(this)" download="my-img.jpg">Download</a>
                 </button>
             </div>
-
-
-
-
-            <form onsubmit="eventHandler(event)">
-                <input type="text" name="meme-text">
-                <button onclick="getMemeTextFromUser()">submit</button>
-            </form>
-            <button onclick="getLineIdxFromUser()">&#8645;</button>
         </div>
         <div class="canvas-container">
-            <canvas id="canvas" height="450" width="450"></canvas>
+            <canvas id="canvas"></canvas>
         </div>
     </section>
-    <div class="social-links">
-        social links
+    <div class="social-links grid full">
+        <img src="/yohai-pic/yohaiPhoto.jpeg" alt="" class="my-photo">
+        <h2 class="social-links-title">Yohai Korem</h2>
+        <p class="social-links-p">A meme lover, a boxer, and now perhaps... <br><br>
+            a fullstack developer
+        </p>
+        <ul class="social-links-list flex clean-list full">
+            <li><a href="#" class="fa fa-facebook"></a></li>
+            <li><a href="#" class="fa fa-linkedin"></a></li>
+            <li><a href="#" class="fa fa-github"></a></li>
+        </ul>
     </div>
-    <footer class="main-footer">
-        <div class="logo">memegen</div>
+    <footer class="main-footer full">
+        <div class="logo"><img class="logo-photo" src="/img/LOGO.png" alt=""></div>
+        <h2>all rights reserved 2019</h2>
     </footer>
     <script src="js/storage-service.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/upload.service.js"></script>
     <script src="js/gallery-controller.js"></script>
     <script src="js/meme-controller.js"></script>
     <script src="js/meme-service.js"></script>

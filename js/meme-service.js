@@ -12,30 +12,33 @@ var gMeme = {
     lines: [
         {
             text: 'I sometimes eat Falafel',
-            size: 20,
-            align: 'left',
-            fillingColor: 'red',
-            xPos: 210,
-            yPos: 25
+            size: 40,
+            align: 'center',
+            font: 'impact',
+            fillingColor: 'white',
+            borderColor: 'black',
+            xPos: 410,
+            yPos: 45,
+            isDrag: false
         },
         {
             text: 'howdy partner',
-            size: 20,
-            align: 'left',
-            fillingColor: 'red',
-            xPos: 210,
-            yPos: 125
+            size: 40,
+            align: 'center',
+            font: 'impact',
+            fillingColor: 'white',
+            borderColor: 'black',
+            xPos: 410,
+            yPos: 520,
+            isDrag: false
         }
     ]
 }
 
 function getMeme() {
-
+    gMeme = _loadFromStorage()
     renderMeme()
 }
-
-
-
 
 function getImgById(imgId) {
     const img = gImgs.find(img => imgId === img.id)
@@ -51,6 +54,27 @@ function _createImg(url) {
 }
 
 
+function addLine() {
+    var newLine = _createLine()
+    gMeme.lines.push(newLine)
+}
+
+function _createLine(text) {
+    return {
+        text: '',
+        size: 20,
+        align: 'center',
+        font: 'impact',
+        fillingColor: 'white',
+        borderColor: 'black',
+        xPos: 210,
+        yPos: 225,
+        isDrag: false
+    }
+
+}
+
+
 function _createImgs() {
     // var imgs = loadFromStorage(STORAGE_KEY)
     var imgs = []
@@ -60,8 +84,6 @@ function _createImgs() {
     }
     return imgs
 }
-
-
 
 function _createMeme(img) {
     return {
@@ -73,7 +95,6 @@ function _createMeme(img) {
 
 function setLineText(text) {
     gMeme.lines[gMeme.selectedLineIdx].text = text
-    renderMeme()
 }
 
 function setGCurrImg(elId) {
@@ -81,5 +102,40 @@ function setGCurrImg(elId) {
     gMeme.selectedImgId = id
     gCurrImg = getImgById(id)
     console.log('gCurrImg', gCurrImg, 'gMeme.selectedImgId', gMeme.selectedImgId);
+    renderMeme()
+}
+function changeFontSize(str) {
+    (str === '+') ? gMeme.lines[gMeme.selectedLineIdx].size++ : gMeme.lines[gMeme.selectedLineIdx].size--
+}
+
+function removeLine() {
+    gMeme.lines.splice([gMeme.selectedLineIdx], 1)
+}
+
+function setTextAlign(str) {
+    gMeme.lines[gMeme.selectedLineIdx].align = str
+}
+
+
+function setLineIdx() {
+    gMeme.selectedLineIdx++
+    if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0
+}
+
+
+function setTexPos(x, y) {
+    gMeme.lines[gMeme.selectedLineIdx].xPos = x
+    gMeme.lines[gMeme.selectedLineIdx].yPos = y
+}
+
+function setFontFamily(font) {
+    gMeme.lines[gMeme.selectedLineIdx].font = font
+}
+
+function _saveMemeToStorage() {
+    saveToStorage(STORAGE_KEY, gMeme)
+}
+function _loadFromStorage() {
+    loadFromStorage(STORAGE_KEY)
     renderMeme()
 }
